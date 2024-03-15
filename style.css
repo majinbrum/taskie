@@ -1,0 +1,228 @@
+/* Palette light */
+:root {
+  /* Elements */
+  --background: #fffffe;
+  --headline: #181818;
+  --paragraph: #2e2e2e;
+  --button: #4fc4cf;
+  --buttonText: #181818;
+
+  /* Illustration */
+  --stroke: #181818;
+  --main: #f2eef5;
+  --highlight: #4fc4cf;
+  --secondary: #994ff3;
+  --tertiary: #fbdd74;
+  --red: #fe646f;
+}
+
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 
+Font 
+<uniquifier>: Use a unique and descriptive class name
+<weight>: Use a value from 100 to 900
+
+.inter-tight-<uniquifier> {
+  font-family: "Inter Tight", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+*/
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 21px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* Generiche  */
+body {
+  font-family: "Inter Tight", sans-serif;
+  background-color: var(--main);
+}
+
+/* Utilities */
+.container {
+  margin: 0 auto;
+
+  width: 393px;
+  height: 852px;
+  border-radius: 2rem;
+  background-color: var(--background);
+
+  border: 2rem solid var(--background);
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+
+  position: relative;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav .dark-mode {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--paragraph);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.1);
+}
+
+nav .dark-mode i {
+  color: var(--tertiary);
+}
+
+header {
+  padding: 1rem 1rem 0 1rem;
+
+  background-color: var(--secondary);
+  color: var(--main);
+  height: 12rem;
+  border-radius: 2rem;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-img,
+.header-img img {
+  height: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+section.daily-section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+section.weekly-section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+div.list-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div.task {
+  padding: 1rem;
+
+  background-color: var(--main);
+  height: 4rem;
+  border-radius: 1rem;
+
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.check-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 0.2rem solid var(--red);
+  border-radius: 20%;
+
+  cursor: pointer;
+}
+
+.check-icon i {
+  opacity: 0;
+}
+
+.task:active h3 {
+  text-decoration: line-through;
+}
+
+.task:active .check-icon {
+  background-color: var(--button);
+  opacity: 40%;
+  border: 0;
+}
+
+.task:active .check-icon i {
+  color: var(--main);
+  opacity: 100;
+}
+
+.new-task {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.new-btn span {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--secondary);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.1);
+}
+
+.new-btn i {
+  color: var(--main);
+}
