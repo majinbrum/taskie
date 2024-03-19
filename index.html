@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light-mode">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,7 +16,7 @@
     <div class="container">
       <nav>
         <h1>Taskie</h1>
-        <span class="dark-mode"><i class="fa-solid fa-moon fa-lg"></i></span>
+        <button class="color-mode"><i class="fa-solid fa-moon fa-lg"></i></button>
       </nav>
 
       <main>
@@ -39,12 +39,12 @@
             </div>
             <span><i class="fa-solid fa-pen fa-lg"></i></span>
           </div>
-          <div class="task">
+          <!-- <div class="task">
             <h3 class="task-title">Fare la spesa</h3>
             <span class="check-icon">
               <i class="fa-solid fa-check"></i>
             </span>
-          </div>
+          </div> -->
         </section>
 
         <!-- <section class="weekly-section">
@@ -75,13 +75,12 @@
         <section class="new-task-menu">
           <div class="new-title">
             <h2>New task</h2>
-            <!-- <i class="star-icon fa-solid fa-star fa-xl"></i> -->
             <i class="cancel-icon fa-regular fa-circle-xmark fa-xl"></i>
           </div>
           <div class="new-menu">
             <div class="new-menu-last">
-              <input class="task-title" placeholder="Task title..." />
-              <button class="confirm-btn">
+              <input class="new-task-title" placeholder="Task title..." />
+              <button class="add-task-btn">
                 <i class="fa-solid fa-circle-arrow-up"></i>
               </button>
             </div>
@@ -89,5 +88,7 @@
         </section>
       </main>
     </div>
+    <!-- <i class="star-icon fa-solid fa-star fa-xl"></i> -->
+    <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
