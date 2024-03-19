@@ -19,7 +19,6 @@ colorMode_btn.addEventListener("click", function () {
 /* *************************************************
  * Open and close the popup menu to add a task
  ************************************************* */
-
 const newTask_btn = document.querySelector(".new-btn");
 const newTask_menu = document.querySelector(".new-task-menu");
 const newTask_close = document.querySelector(".new-task-menu .cancel-icon");
@@ -61,9 +60,9 @@ function addTask_HTMLtemplate(task_title) {
   newTask_template.classList.add("task");
   newTask_template.innerHTML = `
             <h3 class="task-title">${task_title}</h3>
-            <span class="check-icon">
+            <button class="check-icon">
               <i class="fa-solid fa-check"></i>
-            </span>
+            </button>
             `;
   dailyTasks_section.appendChild(newTask_template);
 }
