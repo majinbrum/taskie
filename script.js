@@ -31,7 +31,7 @@ const addTask_inputTitle = document.querySelector(".new-task-title");
 const addTask_btn = document.querySelector(".add-task-btn");
 
 // * Task list
-const dailyTasks_list = document.querySelector(".daily-list");
+const dailyTasks_HTML = document.querySelector(".daily-list");
 const resetList_btn = document.querySelector(".reset-list-btn");
 
 // TODO: CHECK FIRST WHAT TO SHOW
@@ -49,26 +49,41 @@ newTask_close.addEventListener("click", function () {
 
 // TODO: CREATE NEW TASK AND PUSH IT IN THE TASK LIST ARRAY -> STORAGE
 addTask_btn.addEventListener("click", function () {
-  const newTask_title = addTask_inputTitle.value;
-  dailyTasks.push(newTask_title);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(dailyTasks));
+  const newTask_title = addTask_inputTitle.value.trim();
+  if (newTask_title.length > 0) {
+    dailyTasks.push(newTask_title);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dailyTasks));
 
-  addTask_inputTitle.value = "";
-  newTask_menu.classList.remove("popup");
+    addTask_inputTitle.value = "";
+    newTask_menu.classList.remove("popup");
 
-  checkContent();
+    checkContent();
+  }
 });
 
 // TODO: CHECK CONTENT TO SHOW FROM THE LOCAL STORAGE
 function checkContent() {
-  dailyTasks_list.innerHTML = "";
+  dailyTasks_HTML.innerHTML = "";
   if (dailyTasks.length == 0) {
     addTask_HTMLtemplate("Add some tasks!");
   } else {
     dailyTasks.forEach(function (dailyTask) {
       addTask_HTMLtemplate(dailyTask);
+      activate_checkButtons();
     });
   }
+}
+
+// TODO: CHECK BUTTONS OF EACH TASK
+function activate_checkButtons() {
+  const check_btns = document.querySelectorAll(".check-btn");
+  check_btns.forEach(function (check_btn, index) {
+    check_btn.addEventListener("click", function () {
+      dailyTasks.splice(index, 1);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(dailyTasks));
+      checkContent();
+    });
+  });
 }
 
 // TODO: CREATE A TASK DIV (HTML)
@@ -77,12 +92,12 @@ function addTask_HTMLtemplate(task_title) {
   newTask_template.classList.add("task");
   newTask_template.innerHTML = `
   <h3 class="task-title">${task_title}</h3>
-  <button class="check-icon">
+  <button class="check-btn">
   <i class="fa-solid fa-check"></i>
   </button>
   `;
 
-  dailyTasks_list.appendChild(newTask_template);
+  dailyTasks_HTML.appendChild(newTask_template);
 }
 
 // TODO: RESET TASK LIST

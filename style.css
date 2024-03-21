@@ -208,7 +208,7 @@ div.task {
   color: var(--paragraph);
 }
 
-.check-icon {
+.check-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -219,7 +219,7 @@ div.task {
   border-radius: 20%;
 }
 
-.check-icon i {
+.check-btn i {
   opacity: 0;
 }
 
@@ -227,13 +227,13 @@ div.task {
   text-decoration: line-through;
 }
 
-.task.checked .check-icon {
+.task.checked .check-btn {
   background-color: var(--highlight);
   opacity: 40%;
   border: 0;
 }
 
-.task.checked .check-icon i {
+.task.checked .check-btn i {
   color: var(--main);
   opacity: 100;
 }
@@ -296,7 +296,7 @@ div.task {
   opacity: 50%;
 } */
 
-.new-title .cancel-icon {
+.new-title .close-icon {
   color: var(--tertiary);
 }
 
