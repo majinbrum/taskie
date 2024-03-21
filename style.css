@@ -46,6 +46,7 @@ button {
   background-color: transparent;
   outline: none;
   cursor: pointer;
+  color: inherit;
 }
 
 /* 
