@@ -24,14 +24,15 @@ if (storage) {
 // * Popup menu
 const newTask_btn = document.querySelector(".new-btn");
 const newTask_menu = document.querySelector(".new-task-menu");
-const newTask_close = document.querySelector(".new-task-menu .cancel-icon");
+const newTask_close = document.querySelector(".new-task-menu .close-icon");
 
 // * Single task
 const addTask_inputTitle = document.querySelector(".new-task-title");
 const addTask_btn = document.querySelector(".add-task-btn");
 
-// * Task divs
+// * Task list
 const dailyTasks_list = document.querySelector(".daily-list");
+const resetList_btn = document.querySelector(".reset-list-btn");
 
 // TODO: CHECK FIRST WHAT TO SHOW
 checkContent();
@@ -61,8 +62,9 @@ addTask_btn.addEventListener("click", function () {
 // TODO: CHECK CONTENT TO SHOW FROM THE LOCAL STORAGE
 function checkContent() {
   dailyTasks_list.innerHTML = "";
-
-  if (dailyTasks.length > 0) {
+  if (dailyTasks.length == 0) {
+    addTask_HTMLtemplate("Add some tasks!");
+  } else {
     dailyTasks.forEach(function (dailyTask) {
       addTask_HTMLtemplate(dailyTask);
     });
@@ -82,3 +84,15 @@ function addTask_HTMLtemplate(task_title) {
 
   dailyTasks_list.appendChild(newTask_template);
 }
+
+// TODO: RESET TASK LIST
+resetList_btn.addEventListener("click", function () {
+  if (window.confirm("Do you really want to reset the task list?")) {
+    dailyTasks = [];
+    localStorage.clear(STORAGE_KEY, JSON.stringify(dailyTasks));
+
+    checkContent();
+  } else {
+    return;
+  }
+});

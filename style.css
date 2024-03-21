@@ -41,6 +41,13 @@
   box-sizing: border-box;
 }
 
+button {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
 /* 
 Font 
 <uniquifier>: Use a unique and descriptive class name
@@ -122,7 +129,6 @@ nav .color-mode {
   align-items: center;
 
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
 }
 
 nav .color-mode i {
@@ -211,8 +217,6 @@ div.task {
   height: 1.6rem;
   border: 0.2rem solid var(--red);
   border-radius: 20%;
-
-  cursor: pointer;
 }
 
 .check-icon i {
@@ -255,7 +259,6 @@ div.task {
 .new-btn i {
   color: var(--button);
   font-size: 48px;
-  cursor: pointer;
 }
 
 .new-task-menu {
@@ -291,12 +294,10 @@ div.task {
 /* .new-title .star-icon {
   color: var(--tertiary);
   opacity: 50%;
-  cursor: pointer;
 } */
 
 .new-title .cancel-icon {
   color: var(--tertiary);
-  cursor: pointer;
 }
 
 .new-title .star-icon:active {
@@ -332,6 +333,4 @@ div.task {
   font-size: 32px;
   color: var(--button);
   background-color: var(--main);
-
-  cursor: pointer;
 }
