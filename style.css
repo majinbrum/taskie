@@ -95,6 +95,11 @@ body {
   color: var(--headline);
 }
 
+::backdrop {
+  background-color: var(--main);
+  opacity: 60%;
+}
+
 /* Utilities */
 .container {
   margin: 0 auto;
@@ -183,6 +188,35 @@ div.list-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+dialog {
+  justify-self: center;
+  align-self: center;
+
+  border: 0;
+  background-color: var(--background);
+  border-radius: 2rem;
+  padding: 3rem;
+
+  max-width: 30ch;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.dialog-btns {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  column-gap: 1rem;
+}
+
+.confirm-reset {
+  color: #2cb67d;
+}
+
+.cancel-reset {
+  color: var(--red);
 }
 
 div.daily-list {

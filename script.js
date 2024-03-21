@@ -32,7 +32,7 @@ const addTask_btn = document.querySelector(".add-task-btn");
 
 // * Task list
 const dailyTasks_HTML = document.querySelector(".daily-list");
-const resetList_btn = document.querySelector(".reset-list-btn");
+// const resetList_btn = document.querySelector(".reset-list-btn");
 
 // TODO: CHECK FIRST WHAT TO SHOW
 checkContent();
@@ -101,6 +101,7 @@ function addTask_HTMLtemplate(task_title) {
 }
 
 // TODO: RESET TASK LIST
+/*
 resetList_btn.addEventListener("click", function () {
   if (window.confirm("Do you really want to reset the task list?")) {
     dailyTasks = [];
@@ -110,4 +111,26 @@ resetList_btn.addEventListener("click", function () {
   } else {
     return;
   }
+});
+*/
+// TODO: RESET TASK LIST
+const resetList_btn = document.querySelector(".reset-list-btn");
+const resetList_dialog = document.querySelector(".reset-list-dialog");
+const resetList_confirm = document.querySelector(".confirm-reset");
+const resetList_cancel = document.querySelector(".cancel-reset");
+
+resetList_btn.addEventListener("click", function () {
+  resetList_dialog.showModal();
+});
+
+resetList_confirm.addEventListener("click", function () {
+  dailyTasks = [];
+  localStorage.clear(STORAGE_KEY, JSON.stringify(dailyTasks));
+
+  checkContent();
+  resetList_dialog.close();
+});
+
+resetList_cancel.addEventListener("click", function () {
+  resetList_dialog.close();
 });
