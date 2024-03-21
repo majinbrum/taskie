@@ -9,26 +9,15 @@ colorMode_btn.addEventListener("click", function () {
   colorMode_btnicon.classList.toggle("fa-lightbulb");
 });
 
-// TODO: LOCAL STORAGE 1
-const STORAGE_KEY1 = "dailyTasks";
+// TODO: LOCAL STORAGE
+const STORAGE_KEY = "dailyTasks";
 const dailyTasksList = localStorage.getItem;
 
 let dailyTasks = [];
 
-const storage_daily = localStorage.getItem(STORAGE_KEY1);
-if (storage_daily) {
-  dailyTasks = JSON.parse(storage_daily);
-}
-
-// TODO: LOCAL STORAGE 2
-const STORAGE_KEY2 = "dailyTasks_checked";
-const dailyTasksList_checked = localStorage.getItem;
-
-let dailyTasks_checked = [];
-
-const storage_daily_checked = localStorage.getItem(STORAGE_KEY2);
-if (storage_daily_checked) {
-  dailyTasks_checked = JSON.parse(storage_daily_checked);
+const storage = localStorage.getItem(STORAGE_KEY);
+if (storage) {
+  dailyTasks = JSON.parse(storage);
 }
 
 // TODO: ELEMENTS OF THE PAGE
@@ -43,21 +32,10 @@ const addTask_btn = document.querySelector(".add-task-btn");
 
 // * Task list
 const dailyTasks_HTML = document.querySelector(".daily-list");
-const dailyTasksCompleted_HTML = document.querySelector(".daily-list-completed");
-// * Reset task list + dialog
-const resetList_btn = document.querySelector(".reset-list-btn");
-const resetList_dialog = document.querySelector(".reset-list-dialog");
-const resetList_confirm = document.querySelector(".confirm-reset");
-const resetList_cancel = document.querySelector(".cancel-reset");
-// * Trash list + dialog
-const trash_btn = document.querySelector(".trash-btn");
-const trash_dialog = document.querySelector(".trash-dialog");
-const trash_confirm = document.querySelector(".confirm-trash");
-const trash_cancel = document.querySelector(".cancel-trash");
+// const resetList_btn = document.querySelector(".reset-list-btn");
 
 // TODO: CHECK FIRST WHAT TO SHOW
-checkTaskList();
-checkCompletedTaskList();
+checkContent();
 checkTaskCount();
 
 // TODO: OPEN POPUP MENU
@@ -75,42 +53,26 @@ addTask_btn.addEventListener("click", function () {
   const newTask_title = addTask_inputTitle.value.trim();
   if (newTask_title.length > 0) {
     dailyTasks.push(newTask_title);
-    localStorage.setItem(STORAGE_KEY1, JSON.stringify(dailyTasks));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dailyTasks));
 
     addTask_inputTitle.value = "";
     newTask_menu.classList.remove("popup");
 
-    checkTaskList();
+    checkContent();
     checkTaskCount();
   }
 });
 
-// TODO: CHECK TASK LIST TO SHOW FROM THE LOCAL STORAGE1
-function checkTaskList() {
+// TODO: CHECK CONTENT TO SHOW FROM THE LOCAL STORAGE
+function checkContent() {
   dailyTasks_HTML.innerHTML = "";
-
-  if (dailyTasks.length > 0) {
+  if (dailyTasks.length == 0) {
+    addTask_HTMLtemplate("Add some tasks!");
+  } else {
     dailyTasks.forEach(function (dailyTask) {
       addTask_HTMLtemplate(dailyTask);
       activate_checkButtons();
-      resetList_btn.style.display = "block";
     });
-  } else {
-    addTask_HTMLtemplate("Add some tasks!");
-    resetList_btn.style.display = "none";
-  }
-}
-
-// TODO: CHECK COMPLETED TASK LIST TO SHOW FROM THE LOCAL STORAGE2
-function checkCompletedTaskList() {
-  dailyTasksCompleted_HTML.innerHTML = "";
-  if (dailyTasks_checked.length > 0) {
-    dailyTasks_checked.forEach(function (dailyTask_checked) {
-      completedTask_HTMLtemplate(dailyTask_checked);
-    });
-  } else {
-    completedTask_HTMLtemplate("Complete some tasks!");
-    trash_btn.style.display = "none";
   }
 }
 
@@ -119,20 +81,9 @@ function activate_checkButtons() {
   const check_btns = document.querySelectorAll(".check-btn");
   check_btns.forEach(function (check_btn, index) {
     check_btn.addEventListener("click", function () {
-      const dailyTask_checked = dailyTasks.splice(index, 1)[0];
-      console.log(index);
-
-      const dailyTasks_checked = JSON.parse(localStorage.getItem(STORAGE_KEY2) || "[]");
-      dailyTasks_checked.push(dailyTask_checked);
-
-      localStorage.setItem(STORAGE_KEY1, JSON.stringify(dailyTasks));
-      localStorage.setItem(STORAGE_KEY2, JSON.stringify(dailyTasks_checked));
-
-      completedTask_HTMLtemplate(dailyTask_checked);
-
-      checkTaskList();
-      trash_btn.style.display = "block";
-
+      dailyTasks.splice(index, 1);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(dailyTasks));
+      checkContent();
       checkTaskCount();
     });
   });
@@ -152,54 +103,27 @@ function addTask_HTMLtemplate(task_title) {
   dailyTasks_HTML.appendChild(newTask_template);
 }
 
-// TODO: CREATE A COMPLETED TASK DIV (HTML)
-function completedTask_HTMLtemplate(completedtask_title) {
-  const completedTask_template = document.createElement("div");
-  completedTask_template.classList.add("task");
-  completedTask_template.classList.add("checked");
-  completedTask_template.innerHTML = `
-  <h3 class="task-title">${completedtask_title}</h3>
-  <button class="check-btn">
-  <i class="fa-solid fa-check"></i>
-  </button>
-  `;
-  dailyTasksCompleted_HTML.appendChild(completedTask_template);
-}
-
 // TODO: RESET TASK LIST
+const resetList_btn = document.querySelector(".reset-list-btn");
+const resetList_dialog = document.querySelector(".reset-list-dialog");
+const resetList_confirm = document.querySelector(".confirm-reset");
+const resetList_cancel = document.querySelector(".cancel-reset");
+
 resetList_btn.addEventListener("click", function () {
   resetList_dialog.showModal();
 });
 
 resetList_confirm.addEventListener("click", function () {
   dailyTasks = [];
-  localStorage.setItem(STORAGE_KEY1, JSON.stringify(dailyTasks));
-  checkTaskList();
+  localStorage.clear(STORAGE_KEY, JSON.stringify(dailyTasks));
 
+  checkContent();
   checkTaskCount();
   resetList_dialog.close();
 });
 
 resetList_cancel.addEventListener("click", function () {
   resetList_dialog.close();
-});
-
-// TODO: TRASH LIST
-trash_btn.addEventListener("click", function () {
-  trash_dialog.showModal();
-});
-
-trash_confirm.addEventListener("click", function () {
-  dailyTasks_checked = [];
-  localStorage.setItem(STORAGE_KEY2, JSON.stringify(dailyTasks_checked));
-  checkCompletedTaskList();
-
-  checkTaskCount();
-  trash_dialog.close();
-});
-
-trash_cancel.addEventListener("click", function () {
-  trash_dialog.close();
 });
 
 // TODO: TASKIE

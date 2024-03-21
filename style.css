@@ -211,17 +211,20 @@ dialog {
   column-gap: 2rem;
 }
 
-.confirm-reset {
+.confirm-reset,
+.confirm-trash {
   color: var(--highlight);
   font-size: 2.5rem;
 }
 
-.cancel-reset {
+.cancel-reset,
+.cancel-trash {
   color: var(--red);
   font-size: 2.5rem;
 }
 
-div.daily-list {
+div.daily-list,
+div.daily-list-completed {
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
