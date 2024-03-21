@@ -178,6 +178,12 @@ div.list-title {
   align-items: center;
 }
 
+div.daily-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
 div.task {
   padding: 1rem;
 

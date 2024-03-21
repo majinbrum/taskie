@@ -1,11 +1,4 @@
-/*
-* Highlighted comment
-! Red comment
-? Blue comment
-TODO: orange comment
-*/
-
-// * Color theme
+// TODO: COLOR THEME
 const colorMode_btn = document.querySelector(".color-mode");
 colorMode_btn.addEventListener("click", function () {
   const html = document.querySelector("html");
@@ -16,89 +9,76 @@ colorMode_btn.addEventListener("click", function () {
   colorMode_btnicon.classList.toggle("fa-lightbulb");
 });
 
-/* *************************************************
- * Open and close the popup menu to add a task
- ************************************************* */
+// TODO: LOCAL STORAGE
+const STORAGE_KEY = "dailyTasks";
+const dailyTasksList = localStorage.getItem;
+
+let dailyTasks = [];
+
+const storage = localStorage.getItem(STORAGE_KEY);
+if (storage) {
+  dailyTasks = JSON.parse(storage);
+}
+
+// TODO: ELEMENTS OF THE PAGE
+// * Popup menu
 const newTask_btn = document.querySelector(".new-btn");
 const newTask_menu = document.querySelector(".new-task-menu");
 const newTask_close = document.querySelector(".new-task-menu .cancel-icon");
 
+// * Single task
+const addTask_inputTitle = document.querySelector(".new-task-title");
+const addTask_btn = document.querySelector(".add-task-btn");
+
+// * Task divs
+const dailyTasks_list = document.querySelector(".daily-list");
+
+// TODO: CHECK FIRST WHAT TO SHOW
+checkContent();
+
+// TODO: OPEN POPUP MENU
 newTask_btn.addEventListener("click", function () {
   newTask_menu.classList.add("popup");
 });
 
+// TODO: CLOSE POPUP MENU
 newTask_close.addEventListener("click", function () {
   newTask_menu.classList.remove("popup");
 });
 
-/* *************************************************
- * Create a task and add it to the task list
- ************************************************* */
-let dailyActivities = [];
-const addTask_inputTitle = document.querySelector(".new-task-title");
-const addTask_btn = document.querySelector(".add-task-btn");
-const dailyTasks_section = document.querySelector(".daily-section");
-
+// TODO: CREATE NEW TASK AND PUSH IT IN THE TASK LIST ARRAY -> STORAGE
 addTask_btn.addEventListener("click", function () {
-  let newTask_title = addTask_inputTitle.value;
-
-  dailyActivities.push(newTask_title);
-
-  addTask_HTMLtemplate(newTask_title);
+  const newTask_title = addTask_inputTitle.value;
+  dailyTasks.push(newTask_title);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(dailyTasks));
 
   addTask_inputTitle.value = "";
   newTask_menu.classList.remove("popup");
 
-  checkTaskCount();
+  checkContent();
 });
 
-/* *************************************************
- * Function to create a task div
- ************************************************* */
-function addTask_HTMLtemplate(task_title) {
-  let newTask_template = document.createElement("div");
-  newTask_template.classList.add("task");
-  newTask_template.innerHTML = `
-            <h3 class="task-title">${task_title}</h3>
-            <button class="check-icon">
-              <i class="fa-solid fa-check"></i>
-            </button>
-            `;
-  dailyTasks_section.appendChild(newTask_template);
+// TODO: CHECK CONTENT TO SHOW FROM THE LOCAL STORAGE
+function checkContent() {
+  dailyTasks_list.innerHTML = "";
+
+  if (dailyTasks.length > 0) {
+    dailyTasks.forEach(function (dailyTask) {
+      addTask_HTMLtemplate(dailyTask);
+    });
+  }
 }
 
-/* *************************************************
- * Check how many tasks are unchecked to change the taskie avatar img and header text
- ************************************************* */
-window.addEventListener("load", checkTaskCount());
+// TODO: CREATE A TASK DIV (HTML)
+function addTask_HTMLtemplate(task_title) {
+  const newTask_template = document.createElement("div");
+  newTask_template.classList.add("task");
+  newTask_template.innerHTML = `
+  <h3 class="task-title">${task_title}</h3>
+  <button class="check-icon">
+  <i class="fa-solid fa-check"></i>
+  </button>
+  `;
 
-function checkTaskCount() {
-  const taskieAvatar = document.querySelector(".header-img img");
-  const headerTitle = document.querySelector("header h2");
-  const headerText = document.querySelector("header h4");
-
-  if (dailyActivities.length <= 3) {
-    taskieAvatar.src = "img/supataskie.png";
-    headerTitle.textContent = "OMG YOU ROCK!!";
-    headerText.textContent = "No tasks onsight, keep it up!";
-  }
-
-  if (dailyActivities.length > 3 && dailyActivities.length <= 6) {
-    taskieAvatar.src = "img/sorridentetaskie.png";
-    headerTitle.textContent = "You got this!";
-    headerText.textContent = "Cmon hooman, just do it!";
-    // headerText.textContent = "I know it's hard but I believe in you!";
-  }
-
-  if (dailyActivities.length > 6 && dailyActivities.length <= 9) {
-    taskieAvatar.src = "img/madtaskie.png";
-    headerTitle.textContent = "What have you been up to??!!";
-    headerText.textContent = "They're piling up, don't lose control!";
-  }
-
-  if (dailyActivities.length > 9) {
-    taskieAvatar.src = "img/dedtaskie.png";
-    headerTitle.textContent = "Oh jeez...";
-    headerText.textContent = ".. .. . . ... .. . . . .. . . ... .. .. . . ... .. . . . .. . .";
-  }
+  dailyTasks_list.appendChild(newTask_template);
 }
