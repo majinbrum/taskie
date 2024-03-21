@@ -36,6 +36,7 @@ const dailyTasks_HTML = document.querySelector(".daily-list");
 
 // TODO: CHECK FIRST WHAT TO SHOW
 checkContent();
+checkTaskCount();
 
 // TODO: OPEN POPUP MENU
 newTask_btn.addEventListener("click", function () {
@@ -58,6 +59,7 @@ addTask_btn.addEventListener("click", function () {
     newTask_menu.classList.remove("popup");
 
     checkContent();
+    checkTaskCount();
   }
 });
 
@@ -82,6 +84,7 @@ function activate_checkButtons() {
       dailyTasks.splice(index, 1);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(dailyTasks));
       checkContent();
+      checkTaskCount();
     });
   });
 }
@@ -101,19 +104,6 @@ function addTask_HTMLtemplate(task_title) {
 }
 
 // TODO: RESET TASK LIST
-/*
-resetList_btn.addEventListener("click", function () {
-  if (window.confirm("Do you really want to reset the task list?")) {
-    dailyTasks = [];
-    localStorage.clear(STORAGE_KEY, JSON.stringify(dailyTasks));
-
-    checkContent();
-  } else {
-    return;
-  }
-});
-*/
-// TODO: RESET TASK LIST
 const resetList_btn = document.querySelector(".reset-list-btn");
 const resetList_dialog = document.querySelector(".reset-list-dialog");
 const resetList_confirm = document.querySelector(".confirm-reset");
@@ -128,9 +118,41 @@ resetList_confirm.addEventListener("click", function () {
   localStorage.clear(STORAGE_KEY, JSON.stringify(dailyTasks));
 
   checkContent();
+  checkTaskCount();
   resetList_dialog.close();
 });
 
 resetList_cancel.addEventListener("click", function () {
   resetList_dialog.close();
 });
+
+// TODO: TASKIE
+function checkTaskCount() {
+  const taskieAvatar = document.querySelector(".header-img img");
+  const headerTitle = document.querySelector("header h2");
+  const headerText = document.querySelector("header h4");
+
+  if (dailyTasks.length <= 3) {
+    taskieAvatar.src = "img/supataskie.png";
+    headerTitle.textContent = "OMG YOU ROCK!!";
+    headerText.textContent = "No tasks onsight, keep it up!";
+  }
+
+  if (dailyTasks.length > 3 && dailyTasks.length <= 6) {
+    taskieAvatar.src = "img/sorridentetaskie.png";
+    headerTitle.textContent = "You got this!";
+    headerText.textContent = "Cmon hooman, just do it!";
+  }
+
+  if (dailyTasks.length > 6 && dailyTasks.length <= 9) {
+    taskieAvatar.src = "img/madtaskie.png";
+    headerTitle.textContent = "What have you been up to??!!";
+    headerText.textContent = "They're piling up, don't lose control!";
+  }
+
+  if (dailyTasks.length > 9) {
+    taskieAvatar.src = "img/dedtaskie.png";
+    headerTitle.textContent = "Oh jeez...";
+    headerText.textContent = ".. .. . . ... .. . . . .. . . ... .. .. . . ... .. . . . .. . ... .. . . ... .. . . . .. . . ... .. .. . . ... .. . . . .. .";
+  }
+}
